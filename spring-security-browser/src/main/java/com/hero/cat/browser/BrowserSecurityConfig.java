@@ -2,6 +2,8 @@ package com.hero.cat.browser;
 
 
 import com.hero.cat.core.properties.SecurityConstants;
+import com.hero.cat.core.properties.SecurityProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,14 +17,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private SecurityProperties securityProperties;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
-                .loginPage("/cat-signIn.html")
+                .loginPage(SecurityConstants.DEFAULT_UNAUTHENTICATION_URL)
                 .loginProcessingUrl(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/cat-signIn.html")
+                .antMatchers(SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,securityProperties.getBrowser().getLoginPage())
                 .permitAll()
                 .and()
                 .authorizeRequests()
