@@ -1,8 +1,8 @@
 package com.hero.cat;
 
 import org.junit.Before;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,7 +30,7 @@ class DemoApplicationTests {
 
     private MockMvc mockMvc;
 
-    @BeforeEach
+    @Before
     public void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
     }

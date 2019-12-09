@@ -6,6 +6,11 @@ import javax.validation.ConstraintValidatorContext;
 public class MyConstraintValidator implements ConstraintValidator<MyConstraint,Boolean> {
 
     @Override
+    public void initialize(MyConstraint constraintAnnotation) {
+
+    }
+
+    @Override
     public boolean  isValid(Boolean value, ConstraintValidatorContext context) {
         return true;
     }
