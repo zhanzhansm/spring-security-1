@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hero.cat.core.properties.LoginResponseType;
 import com.hero.cat.core.properties.SecurityConstants;
 import com.hero.cat.core.properties.SecurityProperties;
+import com.hero.cat.core.support.SimpleResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
@@ -30,7 +31,7 @@ public class CatAuthenticationFailureHandler extends SimpleUrlAuthenticationFail
 
         if(LoginResponseType.JSON==securityProperties.getBrowser().getLoginType()){
             response.setContentType("application/json;charset=UTF-8");
-            response.getWriter().write(objectMapper.writeValueAsString(exception));
+            response.getWriter().write(objectMapper.writeValueAsString(new SimpleResponse(exception.getMessage())));
         }else{
             super.onAuthenticationFailure(request, response, exception);
         }

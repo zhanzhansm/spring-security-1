@@ -1,4 +1,4 @@
-package com.hero.cat.browser.support;
+package com.hero.cat.core.support;
 
 import lombok.Data;
 

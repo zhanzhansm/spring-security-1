@@ -1,7 +1,7 @@
 package com.hero.cat.browser;
 
 
-import com.hero.cat.browser.support.SimpleResponse;
+import com.hero.cat.core.support.SimpleResponse;
 import com.hero.cat.core.properties.SecurityConstants;
 import com.hero.cat.core.properties.SecurityProperties;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +12,6 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
-import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
