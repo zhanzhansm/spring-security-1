@@ -1,7 +1,6 @@
 package com.hero.cat.browser;
 
 
-import com.hero.cat.core.support.SimpleResponse;
 import com.hero.cat.core.properties.SecurityConstants;
 import com.hero.cat.core.properties.SecurityProperties;
 import lombok.extern.slf4j.Slf4j;
