@@ -1,6 +1,5 @@
 package com.hero.cat.core.validate.code;
 
-import com.hero.cat.browser.support.SimpleResponse;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;

@@ -1,6 +1,8 @@
 package com.hero.cat.core.validate.code;
 
+import com.hero.cat.core.properties.SecurityProperties;
 import com.hero.cat.core.validate.code.image.ImageCode;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
 import org.springframework.web.bind.ServletRequestUtils;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.ServletWebRequest;
 
 import javax.imageio.ImageIO;
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
@@ -22,20 +25,25 @@ public class ImageCodeController {
 
     private SessionStrategy sessionStrategy= new HttpSessionSessionStrategy();
 
+    @Autowired
+    private SecurityProperties properties;
+
     private final static String SEESION_IMAGE_KEY="SEESION_KEY_IMAGE_CODE";
 
     @RequestMapping("/code/image")
     public void createCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
         //request
-        ImageCode imageCode = generate();
+        ImageCode imageCode = generate(new ServletWebRequest(request));
         sessionStrategy.setAttribute(new ServletWebRequest(request),SEESION_IMAGE_KEY,imageCode);
         ImageIO.write(imageCode.getImage(), "JPEG", response.getOutputStream());
     }
 
 
-    public ImageCode generate() {
-        int width=67;
-        int height=32;
+    public ImageCode generate(ServletWebRequest request) {
+
+        Integer codeLength = ServletRequestUtils.getIntParameter(request.getRequest(), "codeLength", properties.getImage().getCodeLength());
+        int width=ServletRequestUtils.getIntParameter(request.getRequest(), "width", properties.getImage().getWidth());
+        int height=ServletRequestUtils.getIntParameter(request.getRequest(), "height", properties.getImage().getHeight());
 
 
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -57,7 +65,7 @@ public class ImageCodeController {
         }
 
         String sRand = "";
-        for (int i = 0; i <4; i++) {
+        for (int i = 0; i <codeLength; i++) {
             String rand = String.valueOf(random.nextInt(10));
             sRand += rand;
             g.setColor(new Color(20 + random.nextInt(110), 20 + random.nextInt(110), 20 + random.nextInt(110)));
